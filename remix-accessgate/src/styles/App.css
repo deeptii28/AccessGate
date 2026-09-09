@@ -1,0 +1,379 @@
+/* AccessGate Core Design & Accessibility Styles */
+
+:root {
+  --color-maroon: #3E1220;
+  --color-gold: #C9962F;
+  --color-cream: #FAF6EE;
+  --color-card: #FFFFFF;
+  --color-border: #E8DDC7;
+  --color-success-text: #27500A;
+  --color-success-bg: #EFF6EC;
+}
+
+/* Base resets & typography */
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-cream);
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(201, 150, 47, 0.09) 0%, transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(62, 18, 32, 0.05) 0%, transparent 45%),
+    linear-gradient(to right, rgba(201, 150, 47, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(62, 18, 32, 0.025) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+  color: #241E1E;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Subtle harmonic rhythm wave motif for cards */
+.card-rhythm-texture {
+  background-color: #FFFFFF;
+  background-image:
+    radial-gradient(circle at 100% 0%, rgba(201, 150, 47, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 0% 100%, rgba(62, 18, 32, 0.04) 0%, transparent 40%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 246, 238, 0.5) 100%);
+  position: relative;
+}
+
+.card-rhythm-texture::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #C9962F 25%, #3E1220 50%, #C9962F 75%, transparent 100%);
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* Distinctive line-art framed badge for icons */
+.art-icon-badge {
+  background: linear-gradient(135deg, #3E1220 0%, #54192B 100%);
+  border: 2px solid #C9962F;
+  box-shadow: 0 3px 10px rgba(62, 18, 32, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #C9962F;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.art-icon-badge-gold {
+  background: linear-gradient(135deg, #C9962F 0%, #B88523 100%);
+  border: 2px solid #3E1220;
+  box-shadow: 0 3px 10px rgba(201, 150, 47, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: #3E1220;
+}
+
+/* Radar pulse wave for idle/waiting states */
+@keyframes radarPulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 0.28;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+.animate-radar {
+  animation: radarPulse 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+.animate-radar-delayed {
+  animation: radarPulse 2.2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  animation-delay: 1.1s;
+}
+
+/* Rhythmic breathing glow */
+@keyframes rhythmicBreathe {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+.animate-rhythm-breathe {
+  animation: rhythmicBreathe 3s ease-in-out infinite;
+}
+
+/* High Contrast Mode - Designed with reference to WCAG 2.1 accessibility guidelines */
+body.high-contrast {
+  --color-cream: #000000;
+  --color-card: #0A0A0E;
+  --color-maroon: #14040A;
+  --color-border: #E8DDC7;
+  --color-gold: #C9962F;
+  background-color: #000000 !important;
+  color: #FAF6EE !important;
+}
+
+body.high-contrast #accessgate-header {
+  background-color: #0F0408 !important;
+  border-bottom: 2px solid #E8DDC7 !important;
+}
+
+body.high-contrast .bg-white {
+  background-color: #0D0D12 !important;
+  color: #FAF6EE !important;
+  border-color: #E8DDC7 !important;
+}
+
+/* Headings and primary text in soft, highly legible light cream */
+body.high-contrast .text-\[\#3E1220\],
+body.high-contrast .text-\[\#241E1E\],
+body.high-contrast h1,
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast h4 {
+  color: #FAF6EE !important;
+}
+
+/* Secondary and descriptive text in light sandstone cream */
+body.high-contrast .text-stone-900,
+body.high-contrast .text-stone-800,
+body.high-contrast .text-stone-700,
+body.high-contrast .text-stone-600,
+body.high-contrast .text-stone-500 {
+  color: #F5EFE6 !important;
+}
+
+body.high-contrast .text-stone-400 {
+  color: #E8DDC7 !important;
+}
+
+/* Light cream boxes inside cards become dark panels with clear borders and light cream text */
+body.high-contrast .bg-\[\#FAF6EE\],
+body.high-contrast .bg-\[\#FAF6EE\]\/30,
+body.high-contrast .bg-\[\#FAF6EE\]\/40,
+body.high-contrast .bg-\[\#FAF6EE\]\/50,
+body.high-contrast .bg-\[\#FAF6EE\]\/60,
+body.high-contrast .bg-stone-50,
+body.high-contrast .bg-stone-100 {
+  background-color: #16161D !important;
+  color: #FAF6EE !important;
+  border-color: #475569 !important;
+}
+
+body.high-contrast .bg-\[\#3E1220\]\/5 {
+  background-color: #23232A !important;
+  color: #FAF6EE !important;
+  border-color: #E8DDC7 !important;
+}
+
+/* Borders */
+body.high-contrast .border-\[\#E8DDC7\] {
+  border-color: #E8DDC7 !important;
+}
+
+body.high-contrast .border-\[\#3E1220\] {
+  border-color: #E8DDC7 !important;
+  color: #FAF6EE !important;
+}
+
+body.high-contrast .border-stone-200,
+body.high-contrast .border-stone-300 {
+  border-color: #64748B !important;
+}
+
+/* Authentic warm gold and cream accents (no neon yellow) */
+body.high-contrast .text-\[\#C9962F\] {
+  color: #E8DDC7 !important;
+}
+
+body.high-contrast button.bg-\[\#C9962F\],
+body.high-contrast .bg-\[\#C9962F\] {
+  background-color: #C9962F !important;
+  color: #1A070E !important;
+  font-weight: 800 !important;
+}
+
+body.high-contrast button.bg-\[\#C9962F\]:hover,
+body.high-contrast .bg-\[\#C9962F\]:hover {
+  background-color: #DDAE49 !important;
+  color: #1A070E !important;
+}
+
+/* Outline buttons in High Contrast */
+body.high-contrast button.border-\[\#3E1220\],
+body.high-contrast .border-\[\#3E1220\] {
+  border-color: #E8DDC7 !important;
+  color: #FAF6EE !important;
+}
+
+body.high-contrast button.border-\[\#3E1220\]:hover {
+  background-color: #27272A !important;
+}
+
+/* Status: Success */
+body.high-contrast .bg-\[\#EFF6EC\] {
+  background-color: #064E3B !important;
+  color: #ECFDF5 !important;
+  border-color: #34D399 !important;
+}
+
+body.high-contrast .text-\[\#27500A\] {
+  color: #86EFAC !important;
+}
+
+body.high-contrast .border-\[\#27500A\],
+body.high-contrast .border-\[\#27500A\]\/30 {
+  border-color: #34D399 !important;
+}
+
+/* Status: Warning / Notice */
+body.high-contrast .bg-\[\#FEF7E6\],
+body.high-contrast .bg-amber-50 {
+  background-color: #3B1B04 !important;
+  color: #FAF6EE !important;
+  border-color: #C9962F !important;
+}
+
+body.high-contrast .text-amber-900,
+body.high-contrast .text-amber-800 {
+  color: #FAF6EE !important;
+}
+
+/* Status: Danger / Error */
+body.high-contrast .bg-red-50,
+body.high-contrast .bg-red-50\/70 {
+  background-color: #450A0A !important;
+  color: #FAF6EE !important;
+  border-color: #EF4444 !important;
+}
+
+body.high-contrast .text-red-900,
+body.high-contrast .text-red-800 {
+  color: #FCA5A5 !important;
+}
+
+/* Large Rhythm Tap Surface */
+body.high-contrast #rhythm-tap-button {
+  background-color: #121217 !important;
+  border-color: #E8DDC7 !important;
+  color: #FAF6EE !important;
+}
+
+body.high-contrast #rhythm-tap-button:hover {
+  background-color: #1E1E24 !important;
+}
+
+body.high-contrast #rhythm-tap-button:active {
+  background-color: #C9962F !important;
+  color: #1A070E !important;
+}
+
+/* Modal dialog container */
+body.high-contrast #accessibility-panel-container {
+  background-color: #0D0D12 !important;
+  border-color: #E8DDC7 !important;
+  color: #FAF6EE !important;
+}
+
+/* Accessibility Settings toggle switches in High Contrast */
+body.high-contrast [role="switch"] {
+  border: 2px solid #E8DDC7 !important;
+}
+
+body.high-contrast [role="switch"][aria-checked="true"] {
+  background-color: #C9962F !important;
+}
+
+body.high-contrast [role="switch"][aria-checked="true"] span {
+  background-color: #1A070E !important;
+}
+
+body.high-contrast [role="switch"][aria-checked="false"] {
+  background-color: #3F3F46 !important;
+}
+
+body.high-contrast [role="switch"][aria-checked="false"] span {
+  background-color: #FAF6EE !important;
+}
+
+/* Progress indicator in High Contrast */
+body.high-contrast nav[aria-label="Verification Progress Steps"] ol {
+  color: #FAF6EE !important;
+}
+
+body.high-contrast nav[aria-label="Verification Progress Steps"] button {
+  color: #FAF6EE !important;
+}
+
+/* Font Size Scaling */
+body.font-size-large {
+  font-size: 112%;
+}
+
+body.font-size-xl {
+  font-size: 125%;
+}
+
+/* Accessible Focus Rings */
+*:focus-visible {
+  outline: 3px solid var(--color-gold) !important;
+  outline-offset: 3px !important;
+}
+
+/* Respect user's reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Screen reader utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Large Accessible Tap Area */
+.tap-touch-target {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF6EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #C9962F;
+  border-radius: 4px;
+}

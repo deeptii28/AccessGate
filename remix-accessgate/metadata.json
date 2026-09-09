@@ -1,0 +1,10 @@
+{
+  "name": "Remix AccessGate",
+  "description": "Accessible CAPTCHA alternative for visually impaired citizens using haptic rhythm verification, behavioral interaction patterns, and voice fallback for Smart India Hackathon 2026.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
